@@ -1,32 +1,28 @@
 #include <WiFi.h>
+#include <SPI.h>
+#include <BME280I2C.h>
+#include <Wire.h>
+#include <cstring>
 
 struct SecurityStruct
 {
-  char          WifiSSID[32];
+  char          WifiSSID[32]= ("ESP_");
   char          WifiKey[64];
   char          WifiSSID2[32];
   char          WifiKey2[64];
   char          WifiAPKey[64];
-  char          Password[26];
+  char          Password[26] = ("12345678");
 } SecuritySettings;
 
-struct SecurityStruct
-{
-  char          WifiSSID[32];
-  char          WifiKey[64];
-  char          WifiSSID2[32];
-  char          WifiKey2[64];
-  char          WifiAPKey[64];
-  char          Password[26];
-} SecuritySettings;
-
-
-
+WiFiServer server(80);
+IPAddress ip = WiFi.localIP();
 boolean AP_Mode = false;
 unsigned int NC_Count = 0;
 unsigned int C_Count = 0;
 boolean wifiSetup = false;
 boolean wifiSetupConnect = false;
+
+uint64_t chipid64; 
 
 struct SettingsStruct
 {
@@ -102,12 +98,11 @@ struct SettingsStruct
 
 
 void setup() {
-
-  WifiAPconfig();
-
-}
+Serial.begin(115200);
+//ssidaddnamemac ();
+WiFi.begin(SecuritySettings.WifiSSID, SecuritySettings.Password); 
+  }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-
-}
+//getpage ();
+  }
