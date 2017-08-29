@@ -11,6 +11,7 @@ enum Device_type{sensor, lcd};
 
 class Device {
   protected:
+  unsigned int counter=0;
   
   
   public:
